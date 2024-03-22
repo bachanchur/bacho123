@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+
+public class Human
+{
+    public string Name { get; set; }
+
+}
+
+public class Employee : Human
+{
+    public int Id { get; set; }
+
+    public virtual void DoWork()
+    {
+        Console.WriteLine($"{Name} is working.");
+    }
+}
+
+public class Factory
+{
+    private List<Employee> workers;
+
+    public Factory()
+    {
+        workers = new List<Employee>();
+    }
+
+    public void AddWorker(Employee worker)
+    {
+        workers.Add(worker);
+    }
+
+    public bool CheckStartWorkingTime()
+    {
+        foreach (var worker in workers)
+        {
+            if (DateTime.Now.Hour < 7)
+            {
+                Console.WriteLine($"Warning: {worker.Name} hasn't started working yet.");
+                return false;
+            }
+        }
+        Console.WriteLine("All workers have started working on time.");
+        return true;
+    }
+}
+
+public class Delivery : Employee
+{
+    public override void DoWork()
+    {
+        Console.WriteLine($"{Name} is delivering goods.");
+    }
+}
+
+public class IT : Employee
+{
+    public override void DoWork()
+    {
+        Console.WriteLine($"{Name} is fixing IT issues.");
+    }
+}
+
+public class Handyman : Employee
+{
+    public override void DoWork()
+    {
+        Console.WriteLine($"{Name} is fixing things.");
+    }
+}
